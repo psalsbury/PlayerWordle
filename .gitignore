@@ -1,0 +1,9 @@
+# Runtime data
+*.sqlite
+*.sqlite3
+*.db
+
+# Backups and local artifacts
+*.bak*
+*.pre-redesign
+.DS_Store
