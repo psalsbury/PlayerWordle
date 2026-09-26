@@ -6,7 +6,7 @@ club-start data. Existing players are preserved. Safe to rerun.
 import urllib.request,urllib.parse,json,time,sqlite3,re,datetime,shutil,unicodedata
 from collections import defaultdict
 
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"
 CLUBS={
 "bournemouth":"Q19568","arsenal":"Q9617","aston-villa":"Q18711","brentford":"Q19571",
 "brighton":"Q19453","chelsea":"Q9616","coventry":"Q19580","crystal-palace":"Q19467",

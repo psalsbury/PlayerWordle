@@ -5,7 +5,7 @@ The collector boundary is intentionally separate so a permitted football-data so
 """
 import csv, sqlite3, os, datetime, random
 from zoneinfo import ZoneInfo
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"
 CSV="/etc/predictioncomp/player-wordle-players.csv"
 TZ=ZoneInfo("Europe/London")
 RANK={"Goalkeeper":0,"Defender":1,"Midfielder":2,"Forward":3,"Striker":3}

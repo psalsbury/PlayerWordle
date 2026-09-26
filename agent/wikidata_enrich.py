@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sqlite3,urllib.request,urllib.parse,json,re,datetime,time
 from zoneinfo import ZoneInfo
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"; TZ=ZoneInfo("Europe/London")
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"; TZ=ZoneInfo("Europe/London")
 CONT={"England":"Europe","Scotland":"Europe","Wales":"Europe","Northern Ireland":"Europe","Republic of Ireland":"Europe","France":"Europe","Spain":"Europe","Portugal":"Europe","Germany":"Europe","Netherlands":"Europe","Belgium":"Europe","Italy":"Europe","Denmark":"Europe","Norway":"Europe","Sweden":"Europe","Switzerland":"Europe","Austria":"Europe","Greece":"Europe","Ukraine":"Europe","Poland":"Europe","Serbia":"Europe","Croatia":"Europe","Slovenia":"Europe","Bosnia and Herzegovina":"Europe","Czech Republic":"Europe","Hungary":"Europe","Turkey":"Europe","Israel":"Asia","Brazil":"South America","Argentina":"South America","Uruguay":"South America","Colombia":"South America","Chile":"South America","Ecuador":"South America","Paraguay":"South America","Nigeria":"Africa","Ghana":"Africa","Morocco":"Africa","Senegal":"Africa","Cote d'Ivoire":"Africa","Mali":"Africa","Algeria":"Africa","Cameroon":"Africa","Guinea":"Africa","Mozambique":"Africa","Burkina Faso":"Africa","DR Congo":"Africa","Democratic Republic of Congo":"Africa","United States":"North America","Canada":"North America","Jamaica":"North America","Japan":"Asia","Uzbekistan":"Asia","Australia":"Oceania","New Zealand":"Oceania"}
 def getjson(url):
  r=urllib.request.Request(url,headers={"User-Agent":"PlayerWordle/1.0 contact: admin@predictioncomp.com","Accept":"application/json"})

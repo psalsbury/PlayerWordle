@@ -6,7 +6,7 @@ API-Football remains fallback only. Never promotes incomplete records.
 """
 import sqlite3,datetime
 from zoneinfo import ZoneInfo
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"; TZ=ZoneInfo("Europe/London")
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"; TZ=ZoneInfo("Europe/London")
 def main():
  c=sqlite3.connect(DB); now=datetime.datetime.now(TZ).isoformat()
  c.executescript("""CREATE TABLE IF NOT EXISTS player_facts(

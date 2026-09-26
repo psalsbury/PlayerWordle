@@ -7,7 +7,7 @@ import sys,os,sqlite3,datetime,time
 from zoneinfo import ZoneInfo
 sys.path.insert(0,"/opt/predictioncomp/bin")
 from api_football import get,DailyQuotaExceeded
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"; TZ=ZoneInfo("Europe/London")
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"; TZ=ZoneInfo("Europe/London")
 TEAM_ALIASES={"AFC Bournemouth":"Bournemouth","Brighton & Hove Albion":"Brighton","Manchester City":"Manchester City","Manchester United":"Manchester United","Nottingham Forest":"Nottingham Forest","Tottenham Hotspur":"Tottenham"}
 def main():
  c=sqlite3.connect(DB); now=datetime.datetime.now(TZ).isoformat()

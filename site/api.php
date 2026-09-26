@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);date_default_timezone_set('Europe/London');header('Content-Type: application/json');header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-$db=new PDO('sqlite:/var/lib/predictioncomp/player-wordle/game.sqlite3');$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+$db=new PDO('sqlite:/var/lib/clubdailyfive/player-wordle/game.sqlite3');$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 $action=$_GET['action']??'';$slug=preg_replace('/[^a-z0-9-]/','',$_GET['club']??'');$cq=$db->prepare("SELECT id FROM clubs WHERE slug=?");$cq->execute([$slug]);$cid=(int)$cq->fetchColumn();if(!$cid){http_response_code(404);echo'{}';exit;}
 if($action==='suggest'){$term=trim($_GET['q']??'');$q=$db->prepare("SELECT id,name FROM players WHERE club_id=? AND name LIKE ? ORDER BY name LIMIT 8");$q->execute([$cid,'%'.$term.'%']);echo json_encode($q->fetchAll(PDO::FETCH_ASSOC));exit;}
 if($action==='start'){$d=date('Y-m-d');$db->prepare("INSERT INTO aggregate_stats(stat_date,club_id,started) VALUES(?,?,1) ON CONFLICT(stat_date,club_id) DO UPDATE SET started=started+1")->execute([$d,$cid]);echo'{"ok":true}';exit;}

@@ -6,7 +6,7 @@ Detailed historical enrichment is a separate adapter so failures never corrupt l
 """
 import urllib.request,re,html,sqlite3,datetime,os
 from zoneinfo import ZoneInfo
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"
 PL="https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists"
 TZ=ZoneInfo("Europe/London")
 def fetch(url):

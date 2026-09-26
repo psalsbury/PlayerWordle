@@ -13,12 +13,16 @@ function appendAnswer(answer){
   if(!answer||!answer.values||rows.querySelector('.answerrow'))return;
   let row=document.createElement('div');
   row.className='guessrow answerrow';
-  row.innerHTML='<b>'+answer.answer+'</b>'+keys.map(k=>'<span class="green">'+answer.values[k]+'</span>').join('');
+  row.innerHTML='<div class="answer-banner"><span>✓ CORRECT PLAYER</span><strong>'+answer.answer+'</strong></div>'+keys.map(k=>'<span class="green">'+answer.values[k]+'</span>').join('');
   rows.append(row);
 }
 
 async function getAnswer(){
   return await (await fetch('api.php?action=answer&club='+GAME.club+'&_='+Date.now(),{cache:'no-store'})).json();
+}
+
+function setCompletedView(){
+  document.body.classList.add('game-complete');
 }
 
 function restoreState(){
@@ -33,9 +37,26 @@ function restoreState(){
   document.querySelector('#left').textContent=Math.max(0,5-attempts);
   if(done){
     box.disabled=true;
+    setCompletedView();
+    document.querySelector('#share').hidden=false;
+    document.querySelector('#choose-club').hidden=false;
     let summary={};
     try{summary=JSON.parse(localStorage.getItem('pw:'+GAME.club)||'{}')}catch(e){}
-    if(summary.won===false&&!rows.querySelector('.answerrow')){
+    if(summary.won===true&&!rows.querySelector('.answerrow')){
+      let last=rows.querySelector('.guessrow:last-child');
+      if(last){
+        last.classList.add('answerrow','won-answer');
+        let name=last.querySelector('b');
+        if(name){
+          let banner=document.createElement('div');
+          banner.className='answer-banner';
+          banner.innerHTML='<span>✓ CORRECT PLAYER</span><strong>'+name.textContent+'</strong>';
+          name.remove();
+          last.prepend(banner);
+        }
+        saveState();
+      }
+    }else if(summary.won===false&&!rows.querySelector('.answerrow')){
       getAnswer().then(answer=>{
         appendAnswer(answer);
         document.querySelector('#result').innerHTML='<h2>Out of guesses</h2><p>The correct player and their data are shown above.</p>';
@@ -67,8 +88,10 @@ async function play(id,name){
   let r=await(await fetch('api.php?action=guess&club='+GAME.club+'&player='+id,{cache:'no-store'})).json();
   attempts++;
   let row=document.createElement('div');
-  row.className='guessrow';
-  row.innerHTML='<b>'+r.name+'</b>'+keys.map(k=>'<span class="'+r.marks[k]+'">'+r.values[k]+'</span>').join('');
+  row.className='guessrow'+(r.correct?' answerrow':'');
+  row.innerHTML=r.correct
+    ? '<div class="answer-banner"><span>✓ CORRECT PLAYER</span><strong>'+r.name+'</strong></div>'+keys.map(k=>'<span class="green">'+r.values[k]+'</span>').join('')
+    : '<b>'+r.name+'</b>'+keys.map(k=>'<span class="'+r.marks[k]+'">'+r.values[k]+'</span>').join('');
   rows.append(row);
   marks.push(keys.map(k=>r.marks[k]==='green'?'🟩':r.marks[k]==='amber'?'🟨':'⬛').join(''));
   document.querySelector('#left').textContent=5-attempts;
@@ -79,6 +102,7 @@ async function play(id,name){
 async function finish(won){
   done=true;
   box.disabled=true;
+  setCompletedView();
   let r=await(await fetch('api.php?action=finish&club='+GAME.club+'&won='+(won?1:0)+'&guesses='+attempts+'&_='+Date.now(),{cache:'no-store'})).json();
   if(!won){
     if(!r.values)r=await getAnswer();
@@ -94,6 +118,7 @@ async function finish(won){
   saveState();
   let sh=document.querySelector('#share');
   sh.hidden=false;
+  document.querySelector('#choose-club').hidden=false;
   sh.onclick=async()=>{
     let t='Player Wordle — '+GAME.name+' — '+GAME.date+'\n'+(won?attempts:'X')+'/5\n'+marks.join('\n')+'\n🔥 Streak '+streak;
     if(navigator.share)navigator.share({text:t});

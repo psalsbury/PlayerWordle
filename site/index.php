@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1); date_default_timezone_set('Europe/London'); header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-$db=new PDO('sqlite:/var/lib/predictioncomp/player-wordle/game.sqlite3');$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+$db=new PDO('sqlite:/var/lib/clubdailyfive/player-wordle/game.sqlite3');$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 $clubs=$db->query("SELECT c.slug,c.name,COUNT(p.id) AS player_count FROM clubs c LEFT JOIN players p ON p.club_id=c.id WHERE c.active=1 GROUP BY c.id,c.slug,c.name ORDER BY c.name")->fetchAll(PDO::FETCH_ASSOC);
 function crest($s){$map=['man-city'=>'manchester-city','man-utd'=>'manchester-united','newcastle'=>'newcastle-united','nottingham-forest'=>'nottingham-forest','tottenham'=>'tottenham-hotspur','aston-villa'=>'aston-villa','leeds'=>'leeds-united','coventry'=>'coventry-city','hull'=>'hull-city','ipswich'=>'ipswich-town'];return $map[$s]??$s;}
 ?><!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">

@@ -6,7 +6,7 @@ profile data are promoted. Safe to rerun: players are upserted by club/name.
 import csv, sqlite3, re, datetime, shutil, os
 from collections import defaultdict
 
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"
 PERF="/var/tmp/player_wordle_performances.csv"
 PROFILES="/var/tmp/player_wordle_profiles.csv"
 CLUBS={

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sqlite3, os
-DB="/var/lib/predictioncomp/player-wordle/game.sqlite3"
+DB="/var/lib/clubdailyfive/player-wordle/game.sqlite3"
 CLUBS=[
 ("bournemouth","AFC Bournemouth"),("arsenal","Arsenal"),("aston-villa","Aston Villa"),("brentford","Brentford"),("brighton","Brighton & Hove Albion"),
 ("chelsea","Chelsea"),("coventry","Coventry City"),("crystal-palace","Crystal Palace"),("everton","Everton"),("fulham","Fulham"),
